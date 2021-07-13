@@ -32,7 +32,7 @@ namespace Move
             } else if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Jump();
-            } else if (Input.touchCount > 0)
+            } else if (Input.GetMouseButtonDown(0))
             {
                 Jump();
             }
