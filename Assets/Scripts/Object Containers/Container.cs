@@ -39,7 +39,14 @@ namespace Containers
 
         public T GetItemByIndex(int index)
         {
-            return _components[index];
+            if (_components.Count > 0)
+            {
+                return _components[index];
+            } else
+            {
+                return null;
+            }
+            
         }
 
         public T GetItem()
