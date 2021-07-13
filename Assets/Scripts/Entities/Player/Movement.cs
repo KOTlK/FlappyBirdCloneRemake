@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Containers;
 
-namespace Player
+namespace Move
 {
     public class Movement
     {

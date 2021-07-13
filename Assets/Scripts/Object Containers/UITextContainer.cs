@@ -1,20 +1,23 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Containers
 {
-    public class PlayerContainer : Container<Rigidbody2D>
+    public class UITextContainer : Container<Text>
     {
-        public static PlayerContainer Instance;
+        public static UITextContainer Instance;
         private void Awake()
         {
             Init();
             if (Instance == null)
             {
                 Instance = this;
-            } else
+            }
+            else
             {
                 Debug.Log("NOOOOOOO!OO!O!O!O");
             }
         }
     }
 }
+

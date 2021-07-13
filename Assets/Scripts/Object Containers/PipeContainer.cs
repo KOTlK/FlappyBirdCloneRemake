@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
+using Entities;
 
 namespace Containers
 {
-    public class PlayerContainer : Container<Rigidbody2D>
+    public class PipeContainer : Container<Pipe>
     {
-        public static PlayerContainer Instance;
+        public static PipeContainer Instance;
         private void Awake()
         {
             Init();
             if (Instance == null)
             {
                 Instance = this;
-            } else
+            }
+            else
             {
                 Debug.Log("NOOOOOOO!OO!O!O!O");
             }

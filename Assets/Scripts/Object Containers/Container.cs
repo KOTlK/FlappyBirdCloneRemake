@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Containers
@@ -16,8 +13,22 @@ namespace Containers
         [Header("Use this when you need to add many objects")]
         [SerializeField] private Transform[] _objects;
 
-        private List<T> _components;
+        private List<T> _components = new List<T>();
         private T _component;
+
+        public int Count
+        {
+            get
+            {
+                if (_component == null)
+                {
+                    return _components.Count;
+                } else
+                {
+                    return 1;
+                }
+            }
+        }
 
         
         private void Awake()
@@ -36,15 +47,42 @@ namespace Containers
             return _component;
         }
 
+        public T[] GetItemsList()
+        {
+            if (_components.Count > 0)
+            {
+                return _components.ToArray();
+            } else
+            {
+                return null;
+            }
+            
+        }
+
+        public void AddItem(T item)
+        {
+            _components.Add(item);
+        }
+
+        public void AddItem(Transform item)
+        {
+            T tObject = item.GetComponent<T>();
+            _components.Add(tObject);
+        }
+
         protected void Init()
         {
             if (_singleObject == null)
             {
-                foreach (Transform i in _objects)
+                if (_objects.Length > 0)
                 {
-                    T tObject = i.GetComponent<T>();
-                    _components.Add(tObject);
+                    foreach (Transform i in _objects)
+                    {
+                        T tObject = i.GetComponent<T>();
+                        _components.Add(tObject);
+                    }
                 }
+                
             }
             else
             {

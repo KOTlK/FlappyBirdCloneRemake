@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Containers;
+using Move;
 
-namespace Player
+namespace Entities
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private float _speed = 5f;
-        [SerializeField] private float _jumpSpeed;
+        public delegate void PlayerDeath();
+        public event PlayerDeath OnPlayerDeath;
+
+        private const float _speed = 5f;
+        private const float _jumpSpeed = 12.5f;
+        private const float _gravityModifier = 4.5f;
+
         private Movement _mover;
-        [SerializeField] private float _gravityModifier = 2.5f;
         private PlayerStatus _status;
         private Rigidbody2D PlayerBody => PlayerContainer.Instance.GetItem();
 
@@ -34,6 +39,13 @@ namespace Player
         public PlayerStatus GetCurrentStatus()
         {
             return _status;
+        }
+
+        public void Die()
+        {
+            _status = PlayerStatus.Dead;
+            OnPlayerDeath?.Invoke();
+            Debug.Log("DEAD");
         }
     }
 }
