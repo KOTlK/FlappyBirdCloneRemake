@@ -5,6 +5,7 @@ using Containers;
 using Move;
 using GameUI;
 using GameLogic;
+using Extensions;
 
 namespace Entities
 {
@@ -52,6 +53,11 @@ namespace Entities
         private void FixedUpdate()
         {
             _mover.UpdatePosition();
+            if (this.transform.position.y < CameraContainer.Instance.GetItem().GetMinBounds().y - 1 || 
+                this.transform.position.y > CameraContainer.Instance.GetItem().GetMaxBounds().y + 1)
+            {
+                Die();
+            }
         }
 
         public PlayerStatus GetCurrentStatus()
@@ -62,8 +68,9 @@ namespace Entities
         public void Die()
         {
             _status = PlayerStatus.Dead;
+            Saves.SaveBestScore(_currentScore);
             OnPlayerDeath?.Invoke();
-            _deathMenu.ShowDeathMenu();
+            _deathMenu.ShowDeathMenu(_currentScore);
         }
 
 
@@ -75,6 +82,7 @@ namespace Entities
                 OnScoreUpdate?.Invoke(_currentScore);
             }
         }
+
     }
 }
 
